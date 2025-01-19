@@ -32,5 +32,5 @@ Technologies Used 🛠️
     JavaScript (ES6+): The core language used to handle game logic and state management.
     CSS3: For styling the application and adding smooth, appealing animations.
     HTML5: The markup language used to structure the game.
-=======
+
 
