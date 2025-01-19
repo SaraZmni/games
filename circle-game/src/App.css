@@ -1,0 +1,57 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.board {
+  width: 70vw;
+  height: 70vh;
+  border: 15px solid #f4511e;
+  cursor: pointer;
+}
+.circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  position: absolute;
+  animation: bounce 0.2s ease-in-out forwards;
+}
+.controls {
+  display: flex;
+  gap: 4px;
+  margin: 10px;
+}
+.controls button {
+  border: 0;
+  padding: 10px 15px;
+  background-color: #2ecc71;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.controls button:active {
+  transform: scale(0.9);
+}
+.controls button.disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+@keyframes bounce {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
