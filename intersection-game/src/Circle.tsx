@@ -1,8 +1,21 @@
-import { FC } from "react";
+import { FC,useEffect,MouseEvent } from "react";
+
+
+const handleContextMenu = e => {
+    e.preventDefault()
+}
 
 const Circle:FC = () => {
+    const handleMouseDown = (e:MouseEvent<HTMLDivElement>) => {
+      console.log('e', e)
+    }
+    useEffect(() => {
+      document.addEventListener('contextmenu',handleContextMenu)
+
+      return () => document.removeEventListener('contextmenu',handleContextMenu)
+    }, [])   
     return(
-        <div className="board">hello world</div>
+        <div className="board" onMouseDown={handleMouseDown}>hello world</div>
     )
 }
 
