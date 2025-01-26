@@ -1,12 +1,12 @@
 import { FC,useEffect,MouseEvent } from "react";
 
 
-const handleContextMenu = e => {
+const handleContextMenu = (e: Event) => {
     e.preventDefault()
 }
 
 const Circle:FC = () => {
-    const handleMouseDown = (e:MouseEvent<HTMLDivElement>) => {
+    const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
       console.log('e', e)
     }
     useEffect(() => {
