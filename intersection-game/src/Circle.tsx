@@ -33,9 +33,13 @@ const Circle:FC = () => {
     startY:0,
     x:0,
     y:0}])
+
+    const [currentCircleId,setCurrentCircleId] = useState<null | string>(null)
     const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
       const {button} = e;
-      const currentId = button === 0 ? 'left':'right'
+      const currentId = button === 0 ? 'left':'right';
+
+      setCurrentCircleId(currentId)
 
       setCircles((prev:Circle[]) => {
         return prev.map((circle:Circle) => {
@@ -50,18 +54,43 @@ const Circle:FC = () => {
         })      
       })
     }
+    const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+     if(currentCircleId === null){
+        return
+     }
+     const updatedCircles = circles.map((circle:Circle) => {
+        if(circle.id === currentCircleId){
+          //calculate where start and where end
+          const distanceX = e.clientX - circle.startX
+          const distanceY = e.clientY - circle.startY
+
+          const size = Math.abs(distanceX)
+          return {
+            ...circle,
+            width:size,
+            height:size,
+            
+
+          }
+        }
+        return circles
+     })
+      return updatedCircles
+    }
     useEffect(() => {
       document.addEventListener('contextmenu',handleContextMenu)
 
       return () => document.removeEventListener('contextmenu',handleContextMenu)
     }, [])   
     return(
-        <div className="board" onMouseDown={handleMouseDown}>
+        <div className="board" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>
           {circles.map((circle) => {
-            return (<div style={{
+            return (<div 
+              key={circle.id}
+              style={{
               position:'absolute',
-              width:circle.width,
-              height:circle.height,
+              width:`${circle.width}px`,
+              height:`${circle.height}px`,
               top:`${circle.x}px`,
               left:`${circle.y}px`,
               backgroundColor:'red',
