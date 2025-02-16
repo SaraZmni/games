@@ -58,7 +58,7 @@ const Circle:FC = () => {
      if(currentCircleId === null){
         return
      }
-     const updatedCircles = circles.map((circle:Circle) => {
+     const updatedCircles:Circle[] = circles.map((circle) => {
         if(circle.id === currentCircleId){
           //calculate where start and where end
           const distanceX = e.clientX - circle.startX
@@ -68,14 +68,13 @@ const Circle:FC = () => {
           return {
             ...circle,
             width:size,
-            height:size,
-            
+            height:size, 
 
           }
         }
-        return circles
+        return circle
      })
-      return updatedCircles
+      setCircles(updatedCircles) 
     }
     useEffect(() => {
       document.addEventListener('contextmenu',handleContextMenu)
