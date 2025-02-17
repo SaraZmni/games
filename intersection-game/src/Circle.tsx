@@ -63,18 +63,25 @@ const Circle:FC = () => {
           //calculate where start and where end
           const distanceX = e.clientX - circle.startX
           const distanceY = e.clientY - circle.startY
+          const size = Math.max(Math.abs(distanceX),Math.abs(distanceY))
 
-          const size = Math.abs(distanceX)
+          const newX = distanceX < 0 ? circle.startX - size :circle.startX ;
+          const newY = distanceY < 0 ? circle.startY - size :circle.startY ;
+
           return {
             ...circle,
             width:size,
             height:size, 
-
+            x:newX,
+            y:newY,
           }
         }
         return circle
      })
       setCircles(updatedCircles) 
+    }
+    const handleMouseUp = () => {
+      setCurrentCircleId(null)
     }
     useEffect(() => {
       document.addEventListener('contextmenu',handleContextMenu)
@@ -82,7 +89,7 @@ const Circle:FC = () => {
       return () => document.removeEventListener('contextmenu',handleContextMenu)
     }, [])   
     return(
-        <div className="board" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>
+        <div className="board" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
           {circles.map((circle) => {
             return (<div 
               key={circle.id}
